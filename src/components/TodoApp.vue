@@ -1,17 +1,28 @@
 <template>
   <div class="container" style="max-width: 600px">
     <!-- Heading -->
-    <h6 class="text-center mt-3 text-light bg-primary">FRAMEWORK</h6>
+
+    <div class="card  text-light bg-primary">
+      <div class=" card-body text-center">
+        
+          <div class="fa-solid fa-bars d-inline-block "></div>
+          <div class = "d-inline-block  "> FRAMEWORKS</div>
+        
+               <button class="btn text-light text-right d-inline float-end "><i class="fa fa-circle-plus text-light d-inline"></i> Add</button>
+         
+        </div>
+      </div>
+    </div>
 
     <!-- Task table -->
-    <table class="table table-hover">
+    <table class="table table-hover mt-3">
       <thead>
-        <tr>
-          <td scope="col">Title</td>
+        <tr class = text-center>
+          <td scope="col">Title </td>
           <td scope="col">Description</td>
           <td scope="col">Deadline</td>
           <td scope="col">Priority</td>
-          <td scope="col">Is Complete</td>
+          <td scope="col">IsComplete</td>
           <td scope="col">Action</td>
         </tr>
       </thead>
@@ -23,8 +34,21 @@
           <td>{{ task.Priority }}</td>
           <td class="text-center">
             <div @click="isComplete(index)">
-               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
             </div>
+          </td>
+        <td class="text-center">
+        
+         <div class="span2">
+            <button  @click="isUpdate(index)" class="btn btn-sm btn-block bg-primary"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+            <button @click="isDelete(index)" class="btn btn-sm btn-block  bg-danger"><i class="fa-solid fa-circle-xmark"></i> Delete  </button>
+          </div>
+
           </td>
         </tr>
       </tbody>
