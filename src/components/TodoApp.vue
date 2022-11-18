@@ -1,4 +1,5 @@
 <template>
+
   <div class="container" style="max-width: 600px">
     <!-- Heading -->
 
@@ -7,9 +8,9 @@
         
           <div class="fa-solid fa-bars d-inline-block "></div>
           <div class = "d-inline-block  "> FRAMEWORKS</div>
-        
-               <button class="btn text-light text-right d-inline float-end "><i class="fa fa-circle-plus text-light d-inline"></i> Add</button>
-         
+        <div>
+   
+  </div>
         </div>
       </div>
     </div>
@@ -45,28 +46,41 @@
         <td class="text-center">
         
          <div class="span2">
-            <button  @click="isUpdate(index)" class="btn btn-sm btn-block bg-primary"><i class="fa-solid fa-pen-to-square"></i> Update</button>
-            <button @click="isDelete(index)" class="btn btn-sm btn-block  bg-danger"><i class="fa-solid fa-circle-xmark"></i> Delete  </button>
+            <button  @click="editTask(index)" class="btn btn-sm btn-block bg-primary"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+            <button @click="deleteTask(index)" class="btn btn-sm btn-block  bg-danger"><i class="fa-solid fa-circle-xmark"></i> Delete  </button>
           </div>
 
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
+  <a-button type="primary" @click="showModal">Open</a-button>
+  <a-modal v-model:visible="visible" wrap-class-name="full-modal-to-xl">
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </a-modal>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String,
+import { ref, defineComponent } from 'vue';
+
+export default defineComponent({
+  setup() {
+    const visible = ref(false);
+
+    const showModal = () => {
+      visible.value = true;
+    };
+    return { visible, showModal };
   },
-  data() {
+
+   data() {
+    
     return {
       task: '',
       editedTask: null,
-
+      show: false,
       tasks: [
         {
           Title: '221 projects',
@@ -75,9 +89,19 @@ export default {
           Priority: 'Low',
         },
       ],
+      
     };
   },
   methods: {
+
+     closeModal() {
+      this.show = false;
+      document.querySelector("body").classList.remove("overflow-hidden");
+    },
+    openModal() {
+      this.show = true;
+      document.querySelector("body").classList.add("overflow-hidden");
+    },
     /**
      * Capitalize first character
      */
@@ -124,23 +148,5 @@ export default {
       this.task = '';
     },
   },
-};
+});
 </script>
-
-<style scoped>
-.pointer {
-  cursor: pointer;
-}
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-}
-.line-through {
-  text-decoration: line-through;
-}
-</style>
