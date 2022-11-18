@@ -8,8 +8,9 @@
         
           <div class="fa-solid fa-bars d-inline-block "></div>
           <div class = "d-inline-block  "> FRAMEWORKS</div>
+            <a-button type="primary d-inline-block float-end" @click="showModal"> <i class="fa-solid fa-circle-plus"></i>  Add </a-button>
         <div>
-   
+  
   </div>
         </div>
       </div>
@@ -23,7 +24,7 @@
           <td scope="col">Description</td>
           <td scope="col">Deadline</td>
           <td scope="col">Priority</td>
-          <td scope="col">IsComplete</td>
+          <td scope="col">Is Complete</td>
           <td scope="col">Action</td>
         </tr>
       </thead>
@@ -34,9 +35,10 @@
           <td>{{ task.Deadline }}</td>
           <td>{{ task.Priority }}</td>
           <td class="text-center">
-            <div @click="isComplete(index)">
+            <div>
               <input
                 class="form-check-input"
+                v-on:click="isHiddenCheck = !isHiddenCheck"
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
@@ -46,19 +48,35 @@
         <td class="text-center">
         
          <div class="span2">
-            <button  @click="editTask(index)" class="btn btn-sm btn-block bg-primary"><i class="fa-solid fa-pen-to-square"></i> Update</button>
-            <button @click="deleteTask(index)" class="btn btn-sm btn-block  bg-danger"><i class="fa-solid fa-circle-xmark"></i> Delete  </button>
-          </div>
 
+  
+            <button v-if="!isHiddenCheck"  @click="showModal" class=" text-light btn btn-sm btn-block bg-primary"><i class="fa-solid fa-pen-to-square text-light"></i> Update</button>
+            <button @click="deleteTask(index)" class=" text-light btn btn-sm btn-block  bg-danger"><i class="fa-solid fa-circle-xmark text-light"></i> Delete  </button>
+        
+        </div>
           </td>
         </tr>
       </tbody>
     </table>
-  <a-button type="primary" @click="showModal">Open</a-button>
+
+  <!--Modal-->
+
   <a-modal v-model:visible="visible" wrap-class-name="full-modal-to-xl">
+  
+       <template #footer>
+   
+        <a-button key="submit"  :loading="loading" @click="Task"
+             class="btn btn-sm btn-block  bg-primary text-light"><i class="fa-solid fa-circle-plus text-light"></i> ADD </a-button>
+         <a-button key="back"  :loading="loading" @click="Task"
+             class="btn btn-sm btn-block  bg-danger text-light"><i class="fa-solid fa-circle-xmark text-light"></i> CANCEL</a-button>
+      
+      </template>  
+      
     <p>Some contents...</p>
     <p>Some contents...</p>
     <p>Some contents...</p>
+
+    
   </a-modal>
 </template>
 
@@ -81,6 +99,7 @@ export default defineComponent({
       task: '',
       editedTask: null,
       show: false,
+      isHiddenCheck: false,
       tasks: [
         {
           Title: '221 projects',
@@ -132,7 +151,7 @@ export default defineComponent({
     /**
      * Add / Update task
      */
-    submitTask() {
+    addTask() {
       if (this.task.length === 0) return;
       /* We need to update the task */
       if (this.editedTask != null) {
