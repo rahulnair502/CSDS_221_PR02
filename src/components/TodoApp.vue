@@ -42,7 +42,7 @@
           <div>
             <input
               class="form-check-input"
-              v-on:click="task.isHiddenCheck = !task.isHiddenCheck"
+              v-on:click="task.isHiddenCheck = true"
               type="checkbox"
               value=""
               id="flexCheckDefault"
@@ -55,7 +55,7 @@
             <button
               v-if="!task.isHiddenCheck"
               data-bs-toggle="modal"
-             
+               @click="editTask(index)"
               data-bs-target="#staticBackdrop" 
               class="text-light btn btn-sm btn-block bg-primary"
             >
@@ -170,7 +170,7 @@
        
          
           <div class="modal-footer">
-            <button @click="editTask(index)" type="button" class="btn btn-primary">
+            <button @click="editTask1" type="button" class="btn btn-primary">
               <i class="fa-solid fa-pen-to-square text-light"></i> Edit
             </button>
             <button
@@ -318,11 +318,12 @@
 
 <script>
 export default {
-      tit: '',
-      desc: '',
-      dead: '',
-      prior: '',
+      tit: "",
+      desc: "",
+      dead: "",
+      prior: "",
       date: null,
+      falseIndex: null,
       editedTask: null,
       show: false,
       isHiddenCheck: false,
@@ -384,6 +385,7 @@ export default {
         });
       }
       toastr.success('Added Succesfully')
+     
       this.description = '';
       this.title = '';
       this.deadline = '';
@@ -394,9 +396,13 @@ export default {
      * Edit task
      */
     editTask(index) {
-      this.tasks[index].description = this.description
- 
-      this.editedTask = index;
+       this.falseIndex = index; 
+    },
+     editTask1() {
+        this.tasks[this.falseIndex].desc = this.description; 
+        this.tasks[this.falseIndex].dead = this.deadline;
+        this.tasks[this.falseIndex].prior = this.priority;
+         toastr.success('Updated Succesfully')
     },
    
   },
