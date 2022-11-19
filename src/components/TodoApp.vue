@@ -110,12 +110,9 @@
             />
           </div>
           <div class="input-group date" data-provide="datepicker">
-            <input
-              v-model = "deadline"
-              class="form-control py-2 border-right-0 border"
-              type="search"
-              id="date"
-            />
+        
+
+             <input v-model = "deadline"   class="form-control py-2 border-right-0 border" id="date-from" type="text" name="date-form" />
             <span class="input-group-append">
               <div class="input-group-text bg-transparent">
                 <i class="fa fa-calendar"></i>
@@ -139,7 +136,7 @@
         </div>
         <div class="form-check form-check-inline">
           <input
-            v-model = "Med"
+            v-model = "priority"
             class="form-check-input"
             type="radio"
             name="inlineRadioOptions"
@@ -226,6 +223,9 @@ export default {
      */
     addTask() {
       if (this.title.length === 0) return;
+      if (this.description.length === 0) return;
+    
+      if (this.priority.length === 0) return;
       /* We need to update the task */
       if (this.editedTask != null) {
         this.tasks[this.editedTask].name = this.task;
