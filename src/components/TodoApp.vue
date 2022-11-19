@@ -34,10 +34,10 @@
     </thead>
     <tbody>
       <tr v-for="(task, index) in tasks" :key="index">
-        <td>{{ task.Title }}</td>
-        <td>{{ task.Description }}</td>
-        <td>{{ task.Deadline }}</td>
-        <td>{{ task.Priority }}</td>
+        <td>{{ task.tit }}</td>
+        <td>{{ task.desc }}</td>
+        <td>{{ task.dead }}</td>
+        <td>{{ task.prior }}</td>
         <td class="text-center">
           <div>
             <input
@@ -51,10 +51,12 @@
         </td>
         <td class="text-center">
           <div class="span2">
+
             <button
               v-if="!task.isHiddenCheck"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+             
+              data-bs-target="#staticBackdrop" 
               class="text-light btn btn-sm btn-block bg-primary"
             >
               <i class="fa-solid fa-pen-to-square text-light"></i> Update
@@ -71,6 +73,118 @@
     </tbody>
   </table>
 
+
+<!-- Modal -->
+<div
+ class="modal fade"
+    id="staticBackdrop"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-center text-light">
+          <h5 class="modal-title text-light text-center" id="exampleModalLabel">
+            <i class="fa-solid fa-pen-to-square text-light"></i> Edit Task
+          </h5>
+        </div>
+
+        <div class="container mb-3 mt-3">
+          <form action="/action_page.php" class="was-validated">
+            
+              <input
+                type="text"
+                v-model="description"
+                class="form-control"
+                placeholder="Description"
+                aria-label="Description"
+                aria-describedby="basic-addon1"
+                required
+              />
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please enter a description</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="input-group date" data-provide="datepicker">
+                <input
+                  v-model="deadline"
+                  class="form-control py-2 border-right-0 border"
+                  id="date-from"
+                  type="text"
+                  name="date-form"
+                  required
+                />
+                <span class="input-group-append">
+                  <div class="input-group-text bg-transparent">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </span>
+              </div>
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please enter a valid date</div>
+            </div>
+             </form>
+            <div class="form-check mb-3">
+
+             <div class="mt-2 text-center">
+            <div><label for="priority">Priority</label></div>
+            <div class="form-check form-check-inline">
+              <input
+                v-model="priority"
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio1"
+                value="Low"
+              />
+              <label class="form-check-label" for="inlineRadio1">Low</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                v-model="priority"
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio2"
+                value="Med"
+              />
+              <label class="form-check-label" for="inlineRadio2">Med</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                v-model="priority"
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio3"
+                value="High"
+              />
+              <label class="form-check-label" for="inlineRadio3">High</label>
+            </div>
+          </div>
+             
+         
+        </div>
+       
+         
+          <div class="modal-footer">
+            <button @click="editTask(index)" type="button" class="btn btn-primary">
+              <i class="fa-solid fa-pen-to-square text-light"></i> Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              <i class="fa-solid fa-cancel"></i> Cancel
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
   <!-- Modal -->
   <div
     class="modal fade"
@@ -98,6 +212,7 @@
                 aria-label="Title"
                 aria-describedby="basic-addon1"
                 required
+                
               />
               <div class="valid-feedback">Valid.</div>
               <div class="invalid-feedback">Please enter a valid title</div>
@@ -194,21 +309,32 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
+  
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      title: '',
-      description: '',
-      deadline: '',
-      priority: '',
+      tit: '',
+      desc: '',
+      dead: '',
+      prior: '',
       date: null,
       editedTask: null,
       show: false,
       isHiddenCheck: false,
-      tasks: [],
+  data() {
+    return {
+      description: '',
+      title: '',
+      deadline: '',
+      priority:'',
+     
+      tasks: [ 
+      ],
     };
   },
   methods: {
@@ -228,13 +354,7 @@ export default {
       toastr.success('Deleted Succesfully')
     },
 
-    /**
-     * Edit task
-     */
-    editTask(index) {
-      this.task = this.tasks[index].name;
-      this.editedTask = index;
-    },
+   
     /**
      * Add / Update task
      */
@@ -250,20 +370,37 @@ export default {
       if (this.priority.length === 0) return;
       /* We need to update the task */
       if (this.editedTask != null) {
-        this.tasks[this.editedTask].name = this.task;
+        this.tasks[this.editedTask].Description = this.description;
+        this.tasks[this.editedTask].Deadline = this.deadline;
+        this.tasks[this.editedTask].Priority = this.priority;
         this.editedTask = null;
       } else {
         /* We need to add new task */
         this.tasks.push({
-          Title: this.title,
-          Description: this.description,
-          Deadline: this.deadline,
-          Priority: this.priority,
+          tit: this.title,
+          desc: this.description,
+          dead: this.deadline,
+          prior: this.priority,
         });
       }
       toastr.success('Added Succesfully')
-      this.task = '';
+      this.description = '';
+      this.title = '';
+      this.deadline = '';
+      this.priority = '';
     },
+
+     /**
+     * Edit task
+     */
+    editTask(index) {
+      this.tasks[index].description = this.description
+ 
+      this.editedTask = index;
+    },
+   
   },
+
+  
 };
 </script>
