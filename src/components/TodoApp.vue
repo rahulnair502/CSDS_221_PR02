@@ -225,6 +225,7 @@ export default {
      */
     deleteTask(index) {
       this.tasks.splice(index, 1);
+      toastr.success('Deleted Succesfully')
     },
 
     /**
@@ -260,6 +261,7 @@ export default {
           Priority: this.priority,
         });
       }
+      toastr.success('Added Succesfully')
       this.task = '';
     },
   },
