@@ -339,14 +339,7 @@ export default {
     };
   },
   methods: {
-    /**
-     * Change status of task by index
-     */
-    changeStatus(index) {
-      let newIndex = this.statuses.indexOf(this.tasks[index].status);
-      if (++newIndex > 2) newIndex = 0;
-      this.tasks[index].status = this.statuses[newIndex];
-    },
+    
     /**
      * Deletes task by index
      */
@@ -360,10 +353,7 @@ export default {
      * Add / Update task
      */
 
-    popUpModal() {
-      $('#exampleModal').modal('show');
-      $('.modal-dialog').css('max-width', '99%');
-    },
+  
     addTask() {
       if (this.title.length === 0) return;
       if (this.description.length === 0) return;
