@@ -42,7 +42,7 @@
           <div>
             <input
               class="form-check-input"
-              v-on:click="isHiddenCheck = !isHiddenCheck"
+              v-on:click="task.isHiddenCheck = !task.isHiddenCheck"
               type="checkbox"
               value=""
               id="flexCheckDefault"
@@ -52,7 +52,7 @@
         <td class="text-center">
           <div class="span2">
             <button
-              v-if="!isHiddenCheck"
+              v-if="!task.isHiddenCheck"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               class="text-light btn btn-sm btn-block bg-primary"
@@ -193,30 +193,11 @@ export default {
       show: false,
       isHiddenCheck: false,
       tasks: [
-        {
-          Title: '',
-          Description: '',
-          Deadline: '',
-          Priority: '',
-        },
+        
       ],
     };
   },
   methods: {
-    closeModal() {
-      this.show = false;
-      document.querySelector('body').classList.remove('overflow-hidden');
-    },
-    openModal() {
-      this.show = true;
-      document.querySelector('body').classList.add('overflow-hidden');
-    },
-    /**
-     * Capitalize first character
-     */
-    capitalizeFirstChar(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    },
     /**
      * Change status of task by index
      */
@@ -231,6 +212,8 @@ export default {
     deleteTask(index) {
       this.tasks.splice(index, 1);
     },
+
+    
     /**
      * Edit task
      */
