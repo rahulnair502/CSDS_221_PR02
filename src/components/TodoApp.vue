@@ -111,7 +111,6 @@
             <input
               class="form-control py-2 border-right-0 border"
               type="search"
-             
               id="date"
             />
             <span class="input-group-append">
@@ -121,15 +120,54 @@
             </span>
           </div>
         </div>
+        
+         <div class = "mt-2 text-center">
+          <div> <label for="priority">Priority</label> </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio1"
+            value="option1"
+          />
+          <label class="form-check-label" for="inlineRadio1">Low</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio2"
+            value="option2"
+          />
+          <label class="form-check-label" for="inlineRadio2">Med</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio3"
+            value="option3"
+          
+          />
+          <label class="form-check-label" for="inlineRadio3"
+            >High</label
+          >
+        </div>
+        </div>
         <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary"> <i class="fa-solid fa-circle-plus"></i> Add</button>
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-danger"
             data-bs-dismiss="modal"
           >
-            Close
+            <i class="fa-solid fa-cancel"></i> Cancel
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+        
         </div>
       </div>
     </div>
