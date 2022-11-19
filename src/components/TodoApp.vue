@@ -87,91 +87,110 @@
           </h5>
         </div>
 
-        <div class="modal-body">
-          <div class="input-group mb-3">
-            <input
-              v-model = "title"
-              type="text"
-              class="form-control"
-              placeholder="Title"
-              aria-label="Title"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+        <div class="container mt-3">
+          <form action="/action_page.php" class="was-validated">
+            <div class="mb-3 mt-3">
+              <input
+                v-model="title"
+                type="text"
+                class="form-control"
+                placeholder="Title"
+                aria-label="Title"
+                aria-describedby="basic-addon1"
+                required
+              />
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please enter a valid title</div>
+            </div>
+            <div class="mb-3">
+              <input
+                type="text"
+                v-model="description"
+                class="form-control"
+                placeholder="Description"
+                aria-label="Description"
+                aria-describedby="basic-addon1"
+                required
+              />
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please enter a description</div>
+            </div>
 
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              v-model = "description"
-              class="form-control"
-              placeholder="Description"
-              aria-label="Description"
-              aria-describedby="basic-addon1"
-            />
-          </div>
-          <div class="input-group date" data-provide="datepicker">
-        
-
-             <input v-model = "deadline"   class="form-control py-2 border-right-0 border" id="date-from" type="text" name="date-form" />
-            <span class="input-group-append">
-              <div class="input-group-text bg-transparent">
-                <i class="fa fa-calendar"></i>
+            <div class="mb-3">
+              <div class="input-group date" data-provide="datepicker">
+                <input
+                  v-model="deadline"
+                  class="form-control py-2 border-right-0 border"
+                  id="date-from"
+                  type="text"
+                  name="date-form"
+                  required
+                />
+                <span class="input-group-append">
+                  <div class="input-group-text bg-transparent">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </span>
               </div>
-            </span>
-          </div>
-        </div>
-        
-         <div class = "mt-2 text-center">
-          <div> <label for="priority">Priority</label> </div>
-        <div class="form-check form-check-inline">
-          <input
-            v-model = "priority"
-            class="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="inlineRadio1"
-            value="Low"
-          />
-          <label class="form-check-label" for="inlineRadio1">Low</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            v-model = "priority"
-            class="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="inlineRadio2"
-            value="Med"
-          />
-          <label class="form-check-label" for="inlineRadio2">Med</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            v-model = "priority"
-            class="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="inlineRadio3"
-            value="High"
-          
-          />
-          <label class="form-check-label" for="inlineRadio3"
-            >High</label
-          >
-        </div>
-        </div>
-        <div class="modal-footer">
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please enter a valid date</div>
+            </div>
+             </form>
+            <div class="form-check mb-3">
 
-          <button @click = "addTask" type="button" class="btn btn-primary"> <i class="fa-solid fa-circle-plus"></i> Add</button>
-          <button
-            type="button"
-            class="btn btn-danger"
-            data-bs-dismiss="modal"
-          >
-            <i class="fa-solid fa-cancel"></i> Cancel
-          </button>
-        
+             <div class="mt-2 text-center">
+            <div><label for="priority">Priority</label></div>
+            <div class="form-check form-check-inline">
+              <input
+                v-model="priority"
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio1"
+                value="Low"
+              />
+              <label class="form-check-label" for="inlineRadio1">Low</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                v-model="priority"
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio2"
+                value="Med"
+              />
+              <label class="form-check-label" for="inlineRadio2">Med</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                v-model="priority"
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio3"
+                value="High"
+              />
+              <label class="form-check-label" for="inlineRadio3">High</label>
+            </div>
+          </div>
+             
+         
         </div>
+       
+         
+          <div class="modal-footer">
+            <button @click="addTask" type="button" class="btn btn-primary">
+              <i class="fa-solid fa-circle-plus"></i> Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              <i class="fa-solid fa-cancel"></i> Cancel
+            </button>
+          </div>
       </div>
     </div>
   </div>
@@ -189,9 +208,7 @@ export default {
       editedTask: null,
       show: false,
       isHiddenCheck: false,
-      tasks: [
-        
-      ],
+      tasks: [],
     };
   },
   methods: {
@@ -210,7 +227,6 @@ export default {
       this.tasks.splice(index, 1);
     },
 
-    
     /**
      * Edit task
      */
@@ -221,10 +237,15 @@ export default {
     /**
      * Add / Update task
      */
+
+    popUpModal() {
+      $('#exampleModal').modal('show');
+      $('.modal-dialog').css('max-width', '99%');
+    },
     addTask() {
       if (this.title.length === 0) return;
       if (this.description.length === 0) return;
-    
+
       if (this.priority.length === 0) return;
       /* We need to update the task */
       if (this.editedTask != null) {
@@ -236,7 +257,7 @@ export default {
           Title: this.title,
           Description: this.description,
           Deadline: this.deadline,
-          Priority: this.priority
+          Priority: this.priority,
         });
       }
       this.task = '';
