@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="max-width: 600px">
+  <div class="container" style="max-width: 1600px">
     <!-- Heading -->
 
     <div class="card text-light bg-primary">
@@ -90,6 +90,7 @@
         <div class="modal-body">
           <div class="input-group mb-3">
             <input
+              v-model = "title"
               type="text"
               class="form-control"
               placeholder="Title"
@@ -101,6 +102,7 @@
           <div class="input-group mb-3">
             <input
               type="text"
+              v-model = "description"
               class="form-control"
               placeholder="Description"
               aria-label="Description"
@@ -109,6 +111,7 @@
           </div>
           <div class="input-group date" data-provide="datepicker">
             <input
+              v-model = "deadline"
               class="form-control py-2 border-right-0 border"
               type="search"
               id="date"
@@ -125,31 +128,34 @@
           <div> <label for="priority">Priority</label> </div>
         <div class="form-check form-check-inline">
           <input
+            v-model = "priority"
             class="form-check-input"
             type="radio"
             name="inlineRadioOptions"
             id="inlineRadio1"
-            value="option1"
+            value="Low"
           />
           <label class="form-check-label" for="inlineRadio1">Low</label>
         </div>
         <div class="form-check form-check-inline">
           <input
+            v-model = "Med"
             class="form-check-input"
             type="radio"
             name="inlineRadioOptions"
             id="inlineRadio2"
-            value="option2"
+            value="Med"
           />
           <label class="form-check-label" for="inlineRadio2">Med</label>
         </div>
         <div class="form-check form-check-inline">
           <input
+            v-model = "priority"
             class="form-check-input"
             type="radio"
             name="inlineRadioOptions"
             id="inlineRadio3"
-            value="option3"
+            value="High"
           
           />
           <label class="form-check-label" for="inlineRadio3"
@@ -159,7 +165,7 @@
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-primary"> <i class="fa-solid fa-circle-plus"></i> Add</button>
+          <button @click = "addTask" type="button" class="btn btn-primary"> <i class="fa-solid fa-circle-plus"></i> Add</button>
           <button
             type="button"
             class="btn btn-danger"
@@ -178,17 +184,20 @@
 export default {
   data() {
     return {
-      task: '',
+      title: '',
+      description: '',
+      deadline: '',
+      priority: '',
       date: null,
       editedTask: null,
       show: false,
       isHiddenCheck: false,
       tasks: [
         {
-          Title: '221 projects',
-          Description: 'to-do',
-          Deadline: 'today',
-          Priority: 'Low',
+          Title: '',
+          Description: '',
+          Deadline: '',
+          Priority: '',
         },
       ],
     };
@@ -233,7 +242,7 @@ export default {
      * Add / Update task
      */
     addTask() {
-      if (this.task.length === 0) return;
+      if (this.title.length === 0) return;
       /* We need to update the task */
       if (this.editedTask != null) {
         this.tasks[this.editedTask].name = this.task;
@@ -241,8 +250,10 @@ export default {
       } else {
         /* We need to add new task */
         this.tasks.push({
-          name: this.task,
-          status: 'todo',
+          Title: this.title,
+          Description: this.description,
+          Deadline: this.deadline,
+          Priority: this.priority
         });
       }
       this.task = '';
