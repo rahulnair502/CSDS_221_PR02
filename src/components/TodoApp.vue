@@ -185,7 +185,6 @@
     </div>
   </div>
   </div>
-  <!-- Modal -->
   <div
     class="modal fade"
     id="exampleModal"
