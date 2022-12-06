@@ -1,4 +1,25 @@
-"dependencies": {
-  "@freecodecamp/example": "1.1.0",
-  "express": "4.14.0"
+
+{
+  "author": "Arjun Taneja",
+  "version": "1.0.0",
+  "name": "fcc-learn-npm-package-json",
+  "description": "A project that does something awesome",
+  "keywords": [ "freecodecamp", "learning", "loop" ] //comma here
+  "dependencies": {
+    "package-name": "version",
+   "express": "2.14.0",
+     "@freecodecamp/example": "1.1.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "8.11.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://idontknow/todo.git"
+  },
+  "license": "MIT"
 }
